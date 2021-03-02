@@ -1,0 +1,23 @@
+<el-table :data="tableData" border style="margin-top:25px; width: 1200px">
+    <!-- <el-table-column fixed prop="date" label="日期" width="150">
+    </el-table-column> -->
+    <el-table-column prop="name" label="器材名稱" width="120">
+    </el-table-column>
+    <el-table-column prop="duration" label="期限(天)" width="80" align='center'>
+    </el-table-column>
+    <el-table-column prop="count" label="數量" width="60" align='center'>
+    </el-table-column>
+    <el-table-column prop="comment" label="補充說明">
+        <template slot-scope="scope">
+            <p v-html='scope.row.comment'></p>
+        </template>
+    </el-table-column>
+    <el-table-column prop="card" label="證件要求" width="120">
+    </el-table-column>
+    <el-table-column  label="操作" min-width="80" width="150" align="center">
+        <template slot-scope="scope">
+            <el-button size="mini" @click="handleEdit(scope.row)" style="margin-bottom: 15px;">Edit</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">Delete</el-button>
+        </template>
+    </el-table-column>
+</el-table>

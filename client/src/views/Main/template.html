@@ -1,0 +1,32 @@
+<div id="app">
+    <el-container>
+        <el-header class="header">
+            <i class="el-icon-s-operation switch-menu-button" @click="switchMenu"></i>
+            <span>衛保組 租借系統</span>
+            <el-avatar :size="38"></el-avatar>
+        </el-header>
+        <el-container class="content">
+            <el-aside class="aside">
+                <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :collapse="isCollapse">
+                    <router-link :to="{name: 'Home'}">
+                        <!-- <router-link to="/"> -->
+                        <el-menu-item index="1">
+                            <i class="el-icon-document"></i>
+                            <span slot="title">登記借用</span>
+                        </el-menu-item>
+                    </router-link>
+                    <router-link :to="{name: 'EquipmentList'}">
+                        <!-- <router-link to="/equipment/list"> -->
+                        <el-menu-item index="2">
+                            <i class="el-icon-setting"></i>
+                            <span slot="title">管理器材</span>
+                        </el-menu-item>
+                    </router-link>
+                </el-menu>
+            </el-aside>
+            <el-main class="main">
+                <router-view></router-view>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
