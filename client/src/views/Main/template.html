@@ -3,7 +3,9 @@
         <el-header class="header">
             <i class="el-icon-s-operation switch-menu-button" @click="switchMenu"></i>
             <span>衛保組 租借系統</span>
-            <el-avatar :size="38"></el-avatar>
+            <el-button v-if="isLogin" type="primary" @click="logout()">{{user().username}} 登出</el-button>
+            <el-button v-else type="danger" @click="dialogFormVisible = true">登入</el-button>
+            <!-- <el-button v-else type="primary" @click="login()">登入</el-button> -->
         </el-header>
         <el-container class="content">
             <el-aside class="aside">
@@ -29,4 +31,18 @@
             </el-main>
         </el-container>
     </el-container>
+    <el-dialog title="使用者登入" :visible.sync="dialogFormVisible">
+        <el-form :model="form">
+            <el-form-item  >
+                <el-input v-model="form.username" autocomplete="off" prefix-icon="el-icon-user"></el-input>
+            </el-form-item>
+            <el-form-item  >
+                <el-input v-model="form.password" autocomplete="off" show-password prefix-icon="el-icon-lock"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取消</el-button>
+            <el-button type="primary" @click="login()">登入</el-button>
+        </div>
+    </el-dialog>
 </div>

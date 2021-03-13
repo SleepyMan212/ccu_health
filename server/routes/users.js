@@ -31,16 +31,41 @@ router.post('/login', async function(req, res) {
     res.json({
       msg: 'Login success',
       status: 'success',
-      token
+      data:{
+        token
+      }
     })
   } else {
     res.status(403).json({
       msg: 'Login failure',
       status: 'failure',
-      token: null
+      data: {
+        token: null,
+        user: {
+          username
+        }
+      }
     })
   }
 })
+
+router.get('/login', async function (req, res) {
+  const { authorization } = req.headers;
+  const token = authorization.split(' ')[1];
+  jwt.verify(token, process.env["JWT_SECRET"], (err, decode) => {
+    if (err) {
+      res.status(200).json({
+        status: false
+      });
+    } else {
+      res.status(200).json({
+        status: true,
+        user:  {...decode }
+      });
+    }
+  });
+})
+
 
 router.post('/register', async function(req, res) {
   const { username, password, passwordAgain } = req.body

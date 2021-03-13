@@ -5,14 +5,15 @@ import VueAxios from 'vue-axios'
 axios.defaults.baseURL = "http://your.domain.name/"; // 域名
 // Error Handle
 const errorHandle = (status, msg) => {
+    console.info(msg);
     switch (status) {
         case 400:
             console.log("400")
-            this.$toast.add({ severity: 'warn', summary: 'Bad Request', detail: msg, life: 3000 });
+            Vue.toasted.show('服務請求錯誤', { type: 'error', duration: 3000 });
             break;
         case 401:
             console.log("401")
-            Vue.prototype.$toast.add({ severity: 'warn', summary: '認證失敗', detail: msg, life: 3000 });
+            Vue.toasted.show('權限不足', { type: 'error', duration: 3000 });
             break;
         default:
             break;
@@ -43,10 +44,10 @@ axios.interceptors.response.use(
             // 成功發出請求但沒收到 response
             if (!window.navigator.onLine) {
                 //如果是網路斷線
-                Vue.prototype.$toast.add({ severity: 'warn', summary: 'Warn Message', detail: "網路出了問題, 請重新連線", life: 3000 });
+                Vue.toasted.show('網路出了問題, 請重新連線', { type:'error', duration:3000 });
             } else {
                 // 其它問題        
-                Vue.prototype.$toast.add({ severity: 'warn', summary: 'Warn Message', detail: "主機伺服器發生問題, 請連絡資訊單位", life: 3000 });
+                Vue.toasted.show('主機伺服器發生問題, 請連絡資訊單位', { type: 'error', duration: 3000 });
                 return Promise.reject(error);
             }
         }
