@@ -5,6 +5,7 @@ import router from './router'
 import 'reset-css';
 import './plugins/element.js'
 import './plugins/axios.js'
+import './plugins/toasted.js'
 
 
 Vue.config.productionTip = false
