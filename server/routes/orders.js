@@ -63,7 +63,7 @@ router.put('/:id', async function (req, res) {
 router.put('/:id/extend', async function (req, res) {
     const { id } = req.params;
     try {
-        const { expiredAt: oldExpiredAt, isExtend  } = await Orders.findOne({where:{
+        const { expiredAt: oldExpiredAt, isExtend, equipmentId  } = await Orders.findOne({where:{
             id
         }})
         // console.info(oldCount);
@@ -71,7 +71,7 @@ router.put('/:id/extend', async function (req, res) {
             res.status(204).json();
             return;
         }
-        const equipment = await checkEquipment(res, id, 0);
+        const equipment = await checkEquipment(res, equipmentId, 0);
         const expiredAt = dayjs(oldExpiredAt).add(equipment.duration, "day").format();
         await Orders.update(
             { expiredAt, isExtend: true },
@@ -153,6 +153,7 @@ function buildData(data) {
             id: d.id,
             expiredAt: d.expiredAt,
             createdAt: d.createdAt,
+            sendedAt: d.sendedAt,
             userName: d.userName,
             email: d.email,
             status: d.status,

@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var equipmentRouter = require('./routes/equipment');
 var ordersRouter = require('./routes/orders');
+const cron = require("node-cron");
+const routine = require('./routine.js')
 
 var app = express();
 
@@ -43,5 +45,11 @@ app.use(function(err, req, res) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+cron.schedule("00 00 03 * * *", () => {
+  console.log("send e-mail");
+  routine.checkEquipmentRent();
+})
 
 module.exports = app;
