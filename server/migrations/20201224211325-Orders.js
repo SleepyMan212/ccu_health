@@ -26,7 +26,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      comment: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
+      isExtend: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
@@ -39,6 +47,11 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW
+      },
+      sendedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null
       },
       expiredAt: {
         type: Sequelize.DATE,

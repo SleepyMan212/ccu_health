@@ -47,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    comment: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     status: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -56,6 +60,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       comment: "false 未歸還;  true已歸還"
+    },
+    isExtend: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -70,7 +79,12 @@ module.exports = (sequelize, DataTypes) => {
     expiredAt: {
       type: DataTypes.DATE,
       allowNull: false
-    }, 
+    },
+    sendedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: null
+    },
     equipmentId: {
       type: DataTypes.INTEGER,
       references: {
