@@ -55,7 +55,8 @@ router.get('/login', async function (req, res) {
   jwt.verify(token, process.env["JWT_SECRET"], (err, decode) => {
     if (err) {
       res.status(200).json({
-        status: false
+        status: false,
+        user: null
       });
     } else {
       res.status(200).json({

@@ -12,18 +12,12 @@ export default {
                 password: '',
             },
             formLabelWidth: '120px',
-            isLogin: false,
         };
     },
     methods: {
         ...mapActions([
             'setToken',
-            'setUser',
-            'getUser',
-            'checkLogin'
-        ]),
-        ...mapGetters([
-            'user'
+            'checkLogin',
         ]),
         switchMenu() {
             this.isCollapse = !this.isCollapse
@@ -33,24 +27,26 @@ export default {
             if (token !== null) {
                 await this.setToken(token);
                 console.info('login success')
+                await this.checkLogin()
             } else {
                 console.info('login fail')
             }
 
             this.dialogFormVisible = false;
-            this.isLogin = await this.checkLogin();
         },
         async logout() {
             await this.setToken(null);
-            this.isLogin = await this.checkLogin();
-        }
+            console.info(this.isLogin)
+        },
     },
     async created() {
-        const { data } = await this.$http.get(`//127.0.0.1:3000/users/login`)
-        this.isLogin = data.status;
-        this.setUser(data.user)
+        await this.checkLogin()
     },
     computed: {
+        ...mapGetters([
+            'user',
+            'isLogin'
+        ]),
     }
 
 };

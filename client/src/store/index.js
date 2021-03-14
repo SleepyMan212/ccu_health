@@ -27,18 +27,26 @@ export default new Vuex.Store({
       
       commit('setToken', token);
     },
-    async checkLogin({ state }) {
-      const token = state.token === null ? window.localStorage.getItem('jwtToken') : state.token;
-
-      if (token !== null) return true;
-      return false;
-    },
     setUser({ commit }, user) {
       commit('setUser', user);
     },
+    async checkLogin({ commit }) {
+      const { data } = await Vue.$http.get(`//127.0.0.1:3000/users/login`)
+      if (data.status === false) {
+        commit('setToken', null)
+      } else {
+        commit('setToken', window.localStorage.getItem('jwtToken'));
+      }
+      commit('setUser', data.user);
+    }
   },
   getters: {
     user: state => state.user,
+    isLogin: (state) => {
+      const token = state.token === null ? window.localStorage.getItem('jwtToken') : state.token;
+      if (token !== null) return true;
+      return false;
+    }
   },
   modules: {
   }

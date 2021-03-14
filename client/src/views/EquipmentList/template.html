@@ -1,23 +1,49 @@
-<el-table :data="tableData" border style="margin-top:25px; width: 1200px">
-    <!-- <el-table-column fixed prop="date" label="日期" width="150">
+<div>
+    <el-table :data="tableData" border style="margin-top:25px; width: 1200px">
+        <!-- <el-table-column fixed prop="date" label="日期" width="150">
     </el-table-column> -->
-    <el-table-column prop="name" label="器材名稱" width="120">
-    </el-table-column>
-    <el-table-column prop="duration" label="期限(天)" width="80" align='center'>
-    </el-table-column>
-    <el-table-column prop="count" label="數量" width="60" align='center'>
-    </el-table-column>
-    <el-table-column prop="comment" label="補充說明">
-        <template slot-scope="scope">
-            <p v-html='scope.row.comment'></p>
-        </template>
-    </el-table-column>
-    <el-table-column prop="card" label="證件要求" width="120">
-    </el-table-column>
-    <el-table-column  label="操作" min-width="80" width="150" align="center">
-        <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)" style="margin-bottom: 15px;">Edit</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">Delete</el-button>
-        </template>
-    </el-table-column>
-</el-table>
+        <el-table-column prop="name" label="器材名稱" width="120">
+        </el-table-column>
+        <el-table-column prop="duration" label="期限(天)" width="80" align='center'>
+        </el-table-column>
+        <el-table-column prop="count" label="數量" width="60" align='center'>
+        </el-table-column>
+        <el-table-column prop="comment" label="補充說明">
+            <template slot-scope="scope">
+                <p v-html='scope.row.comment'></p>
+            </template>
+        </el-table-column>
+        <el-table-column prop="card" label="證件要求" width="120">
+        </el-table-column>
+        <el-table-column label="操作" min-width="80" width="150" align="center">
+            <template slot-scope="scope">
+                <el-button size="mini" @click="handleEdit(scope.row)" style="margin-bottom: 15px;">Edit</el-button>
+                <el-button size="mini" type="danger" @click="handleClick(scope.row)">Delete</el-button>
+                <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.row)">Delete</el-button> -->
+            </template>
+        </el-table-column>
+    </el-table>
+    <el-dialog title="新增器材" :visible.sync="equipmentFormVisible">
+        <el-form :model="form" label-width="80px">
+            <el-form-item label="名稱" prop="count">
+                <el-input placeholder="器材名稱" v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="數量" prop="count">
+                <el-input type="number" placeholder="數量" v-model="form.count"></el-input>
+            </el-form-item>
+            <el-form-item label="時間" prop="duration">
+                <el-input type="number" placeholder="時間" v-model="form.duration"></el-input>
+            </el-form-item>
+            <el-form-item label="證件要求">
+                <el-input type="textarea" v-model="form.card"></el-input>
+            </el-form-item>
+            <el-form-item label="備註">
+                <el-input type="textarea" v-model="form.comment"  :rows="4"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="equipmentFormVisible = false">取消</el-button>
+            <el-button type="primary" @click="updateEquipment(form.id)">確認</el-button>
+        </div>
+    </el-dialog>
+</div>
