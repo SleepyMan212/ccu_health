@@ -4,49 +4,20 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: "EquipmentList",
+    props:['getData', 'tableData'],
     data() {
         return {
-            tableData: [],
-            equipmentFormVisible: false,
-            formLabelWidth: '120px',
-            form: {
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: '',
-                card: '',
-                comment: '',
-                count: 0,
-                duration: 7,
-                name: ''
-            },
-            defaultForm: {
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: '',
-                card: '',
-                comment: '',
-                count: 0,
-                duration: 7,
-                name: ''
-            }
+            // tableData: [],
         };
     },
-    computed:{
+    components: {
+    },computed:{
             ...mapGetters([
             'isLogin'
         ]),
     },
     methods: {
         handleClick(row) {
-            console.log(row);
             this.$toasted.show('確認要刪除嗎?', { 
                 type:'error',
                 duration:3000,
@@ -65,29 +36,15 @@ export default {
                 ]
             });
         },
-        handleEdit(row) {
-            this.equipmentFormVisible = true
-            this.$set(this, 'form', row);
-        },
         async handleDelete(row) {
             const { id } = row;
             await this.$http.delete(`//127.0.0.1:3000/equipment/${id}`)
             await this.getData();
             this.$toasted.show('刪除成功', {type:'success', duration:3000})
         },
-        async getData() {
-            try {
-                const res = await this.$http.get('//127.0.0.1:3000/equipment')
-                this.tableData = res.data.data.sort((a, b) => a.id > b.id)   
-            } catch (error) {
-                console.error(error)
-            }
+        async handleEdit(row) {
+            this.$root.$emit('equipmentEdit', row);
         },
-        async updateEquipment(id) {
-            await this.$http.put(`//127.0.0.1:3000/equipment/${id}`, this.form);
-            await this.getData();
-            this.equipmentFormVisible = false
-        }
     },
     async created() {
         this.getData();

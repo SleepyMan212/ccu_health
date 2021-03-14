@@ -1,11 +1,19 @@
 <div>
-    <el-row type='flex' justify="center">
+    <el-row type='flex' justify="space-between" align="middle">
+        <el-col :span="6" align="center">
+        </el-col>
         <el-col :span="12" align="center">
             器材管理
         </el-col>
+        <el-col :span="6" align="center">
+            <el-button type="success" @click="$refs.form.handleAdd()">新增器材</el-button>
+        </el-col>
     </el-row>
     <el-row type='flex' justify="center">
-        <router-view></router-view>
+        <EquipmentList :getData="getData" :tableData.sync="tableData"> </EquipmentList>
     </el-row>
+
+
+    <EquipmentForm ref="form" :getData="getData"></EquipmentForm>
 </div>
 
