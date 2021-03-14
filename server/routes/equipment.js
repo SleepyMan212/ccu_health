@@ -3,7 +3,7 @@ var router = express.Router();
 const auth = require('./middleware/auth')
 const db = require('../models');
 const admin = require('./middleware/admin');
-const { Equipment } = db;
+const { Equipment, Orders } = db;
 
 router.use(auth);
 router.use(admin);
@@ -15,10 +15,17 @@ router.get('/', async function (req, res) {
 
 router.get('/:id' ,async function (req, res) {
     const { id } = req.params;
-    const data = await Equipment.findAll(
-        { where: { id } }
-    );
-    res.json({ data });
+    const data = await Equipment.findOne({ 
+        where: { id },
+        raw: true
+    });
+    const useCount = (await Orders.findAll({
+        where: {
+            equipmentId: id,
+            status: false
+        }
+    })).reduce((acc, order) => acc + order.count, 0)
+    res.json({ ...data, useCount });
 });
 
 router.put('/:id', async function (req, res) {

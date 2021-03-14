@@ -1,0 +1,42 @@
+<div>
+    <el-row type='flex' justify="space-between" align="middle">
+        <el-col :span="8" align="center">
+        </el-col>
+        <el-col :span="8" align="center">
+            租借管理
+        </el-col>
+        <el-col :span="8" align="center">
+            <el-button type="success" @click="$refs.form.handleAdd()">新增租借</el-button>
+        </el-col>
+    </el-row>
+    <el-row type='flex' justify="center" align="top" :gutter="10">
+        <el-col :span='4'>
+            <el-row type='flex' style="flex-wrap:wrap;margin-top: 25px;margin-left: 15px">
+                <el-col :span='24'>
+                    <el-select v-model="currentStatus" placeholder="請選擇">
+                        <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <el-select v-model="currentEquipment" placeholder="請選擇">
+                        <el-option v-for="item in equipmentOptions" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-col>
+                <el-col :span='24' style="margin-top:15px">
+                    <div v-show="currentEquipment!=''">
+                        <div>總數量：{{count}}</div>
+                        <div>借出數量：{{useCount}}</div>
+                        <div>剩餘數量：{{count - useCount}}</div>
+                    </div>
+                </el-col>
+            </el-row>
+        </el-col>
+        <el-col :span='20'>
+            <OrderList :getData="getData" :tableData.sync="hadleData"> </OrderList>
+        </el-col>
+    </el-row>
+
+
+    <OrderForm ref="form" :getData="getData" :options='equipmentOptions'></OrderForm>
+</div>
+

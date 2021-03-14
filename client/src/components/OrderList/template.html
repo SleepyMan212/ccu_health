@@ -1,0 +1,36 @@
+<div>
+    <el-table :data="tableData" border style="margin-top:25px; width: 1200px">
+        <el-table-column prop="statusText" label="狀態" width="80" sortable>
+        </el-table-column>
+        <el-table-column prop="userName" label="借用人" width="80">
+        </el-table-column>
+        <el-table-column prop="createdAt" label="借用日期" width="80" sortable align='center'>
+        </el-table-column>
+        <el-table-column prop="expiredAt" label="應歸還日" width="80" sortable align='center'>
+        </el-table-column>
+        <el-table-column prop="equipmentName" label="器材" width="120">
+        </el-table-column>
+        <el-table-column prop="count" label="數量" width="60" align='center'>
+        </el-table-column>
+        <el-table-column prop="email" label="email">
+        </el-table-column>
+        <el-table-column prop="phone" label="手機" width="120">
+        </el-table-column>
+        <el-table-column prop="comment" label="補充說明">
+            <template slot-scope="scope">
+                <p v-html='scope.row.comment'></p>
+            </template>
+        </el-table-column>
+        <el-table-column label="申請續借" width="120" align='center'>
+            <template slot-scope="scope">
+                <el-button v-show="!scope.row.isExtend" size="mini" @click="handleExtend(scope.row)" style="margin-bottom: 15px;">延用</el-button>
+            </template>
+        </el-table-column>
+        <el-table-column label="操作" min-width="80" width="150" align="center">
+            <template slot-scope="scope">
+                <el-button size="mini" @click="handleEdit(scope.row)" style="margin-bottom: 15px;">Edit</el-button>
+                <el-button size="mini" type="danger" @click="handleClick(scope.row)">Delete</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+</div>
