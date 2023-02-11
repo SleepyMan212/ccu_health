@@ -33,10 +33,12 @@ export default {
             }
 
             this.dialogFormVisible = false;
+            location.reload()
         },
         async logout() {
             await this.setToken(null);
             console.info(this.isLogin)
+            location.reload()
         },
     },
     async created() {
