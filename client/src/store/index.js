@@ -30,12 +30,12 @@ export default new Vuex.Store({
     setUser({ commit }, user) {
       commit('setUser', user);
     },
-    async checkLogin({ commit }) {
+    async checkLogin({ commit, dispatch }) {
       const { data } = await Vue.$http.get(`//127.0.0.1:3000/users/login`)
       if (data.status === false) {
-        commit('setToken', null)
+        dispatch("setToken", null)
       } else {
-        commit('setToken', window.localStorage.getItem('jwtToken'));
+        dispatch("setToken",window.localStorage.getItem('jwtToken'))
       }
       commit('setUser', data.user);
     }

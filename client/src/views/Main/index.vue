@@ -27,7 +27,6 @@ export default {
             if (token !== null) {
                 await this.setToken(token);
                 console.info('login success')
-                await this.checkLogin()
             } else {
                 console.info('login fail')
             }
@@ -37,7 +36,6 @@ export default {
         },
         async logout() {
             await this.setToken(null);
-            console.info(this.isLogin)
             location.reload()
         },
     },
