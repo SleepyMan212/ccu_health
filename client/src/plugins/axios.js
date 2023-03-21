@@ -2,18 +2,22 @@ import Vue from 'vue';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-axios.defaults.baseURL = "http://your.domain.name/"; // 域名
+axios.defaults.baseURL = "//localhost:3000"; // 域名
 // Error Handle
 const errorHandle = (status, msg) => {
     console.info(msg);
     switch (status) {
         case 400:
             console.log("400")
-            Vue.toasted.show('服務請求錯誤', { type: 'error', duration: 3000 });
+            Vue.toasted.show('服務請求錯誤, 可能輸入有誤', { type: 'error', duration: 3000 });
             break;
         case 401:
             console.log("401")
-            Vue.toasted.show('權限不足', { type: 'error', duration: 3000 });
+            Vue.toasted.show('需要登入', { type: 'error', duration: 3000 });
+            break;
+        case 403:
+            console.log("403")
+            Vue.toasted.show('沒有請求權限', { type: 'error', duration: 3000 });
             break;
         default:
             break;
