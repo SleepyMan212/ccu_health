@@ -16,7 +16,7 @@
         <el-table-column prop="card" label="證件要求" width="120">
         </el-table-column>
         <el-table-column label="操作" min-width="80" width="150" align="center">
-            <template slot-scope="scope">
+            <template slot-scope="scope" v-show="isAdmin">
                 <el-button size="mini" @click="handleEdit(scope.row)" style="margin-bottom: 15px;">Edit</el-button>
                 <el-button size="mini" type="danger" @click="handleClick(scope.row)">Delete</el-button>
                 <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.row)">Delete</el-button> -->

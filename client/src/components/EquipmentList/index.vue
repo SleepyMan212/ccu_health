@@ -13,7 +13,8 @@ export default {
     components: {
     },computed:{
             ...mapGetters([
-            'isLogin'
+            'isLogin',
+            'isAdmin'
         ]),
     },
     methods: {
@@ -47,7 +48,9 @@ export default {
         },
     },
     async created() {
-        this.getData();
+        if(this.isLogin) {
+            this.getData();
+        }
     },
     watch: {
         isLogin(val) {

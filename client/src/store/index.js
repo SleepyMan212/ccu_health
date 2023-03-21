@@ -46,6 +46,10 @@ export default new Vuex.Store({
       const token = state.token === null ? window.localStorage.getItem('jwtToken') : state.token;
       if (token !== null) return true;
       return false;
+    },
+    isAdmin: (state) => {
+      if(state.user === null) return false;
+      return state.user.isAdmin;
     }
   },
   modules: {
