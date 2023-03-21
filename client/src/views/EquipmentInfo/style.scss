@@ -1,0 +1,25 @@
+@import "../../assets/scss/_variables";
+
+.header {
+    background-color: $color-main;
+    height: 50px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    color: $color-light;
+    letter-spacing: 1.2px;
+    font-weight: 500;
+}
+
+/* 因為header的高度從預設的60px改為50px,
+     所以原本.content的calc(100vh - 50px)高度也要跟著更改 */
+.content {
+    height: calc(100vh - 50px);
+}
+
+.btn-accept {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+}
