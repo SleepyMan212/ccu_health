@@ -20,7 +20,7 @@ export default {
             'checkLogin',
         ]),
         switchMenu() {
-            this.isCollapse = !this.isCollapse
+            // this.isCollapse = !this.isCollapse
         },
         async login() {
             const { data: { data: { token } } } = await this.$http.post(`//127.0.0.1:3000/users/login`, this.form)
