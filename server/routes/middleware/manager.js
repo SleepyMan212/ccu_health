@@ -15,7 +15,7 @@ async function admin(req, res, next) {
             }
         })
         
-        if (user && (user.auth === 2 || user.auth === 2)) {
+        if (user && (user.auth === 1 || user.auth === 2)) {
             next();
         } else {
             res.status(403).json({
