@@ -3,7 +3,7 @@ const db = require('../../models');
 const { Users } = db;
 
 async function admin(req, res, next) {
-    if (typeof req.decode === "undefined") {
+    if(typeof req.decode === "undefined") {
         res.status(403).json({
             msg: 'forbidden'
         })
@@ -15,7 +15,7 @@ async function admin(req, res, next) {
             }
         })
         
-        if(user && user.auth === 1) {
+        if (user && (user.auth === 2 || user.auth === 2)) {
             next();
         } else {
             res.status(403).json({
