@@ -1,0 +1,18 @@
+<div>
+    <el-row type='flex' justify="space-between" align="middle">
+        <el-col :span="6" align="center">
+        </el-col>
+        <el-col :span="12" align="center">
+            使用者管理
+        </el-col>
+        <el-col :span="6" align="center">
+            <el-button type="success" @click="$refs.form.handleAdd()">新增管理者</el-button>
+        </el-col>
+    </el-row>
+    <el-row type='flex' justify="center">
+        <UserList :getData="getData" :tableData.sync="tableData"> </UserList>
+    </el-row>
+
+
+    <UserForm ref="form" :getData="getData" :options="authOptions"></UserForm>
+</div>
