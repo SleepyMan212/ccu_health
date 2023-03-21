@@ -39,7 +39,7 @@ export default {
                 this.tableData = res.data.map(d=>{
                     return {
                         ...d,
-                        auth: d.auth === 2 ? "管理者" : "一般人",
+                        authText: d.auth === 2 ? "管理者" : "一般人",
                         createdAt: d.createdAt.substring(0,10)
                     }
                 })

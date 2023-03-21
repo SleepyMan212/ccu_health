@@ -4,7 +4,7 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const db = require('../models');
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const { sequelize, Users } = db;
 const admin = require('./middleware/admin');
 const auth = require('./middleware/auth');
@@ -51,13 +51,24 @@ router.put('/:id', auth, admin, async function (req, res) {
     const user = await Users.findByPk(id);
     if (!user) res.status(200).json({msg: "No exist user"})
     const { body } = req;
-    if (bcrypt.compareSync(user.password, body.oldPassword) && body.password === body.passwordAgain) {
+    if (body.password && body.passwordAgain && body.password === body.passwordAgain) {
       const hash = bcrypt.hashSync(body.password, saltRounds);
       await Users.update({
         username: body.username,
         auth: body.auth,
         password: hash
-      },{ transaction: t});      
+      },{ 
+        transaction: t,
+        where: {id}
+      });      
+    } else {
+      await Users.update({
+        username: body.username,
+        auth: body.auth,
+      }, {
+        transaction: t,
+        where: { id }
+      });
     }
     await t.commit();
     res.status(204).json();

@@ -2,7 +2,7 @@
     <el-dialog :title="title" :visible.sync="userFormVisible">
         <el-form :model="form" label-width="80px" :rules="rules" ref="userForm">
             <el-form-item label="名稱" prop="username">
-                <el-input placeholder="借用人" v-model="form.username"></el-input>
+                <el-input placeholder="管理者名稱" v-model="form.username"></el-input>
             </el-form-item>
             <el-form-item label="權限" prop="auth">
                 <el-select v-model="form.auth" placeholder="請選擇" filterable style="width: 100%;">
@@ -10,9 +10,9 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="舊密碼" prop="oldPassword" v-show="type==='update'">
+            <!-- <el-form-item label="舊密碼" prop="oldPassword" v-show="type==='update'">
                 <el-input type="password" v-model="form.oldPassword"></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="密碼" prop="password">
                 <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>

@@ -23,6 +23,12 @@ export default {
                 passwordAgain: ""
             },
             rules:{
+                
+            },
+            oldPassword: [
+                {required: true, message: '請輸入舊密碼', trigger: 'blur'}
+            ],
+            rulesBak: {
                 userName: [
                     {required: true, message: '請輸入借用人', trigger: 'blur'}
                 ],
@@ -35,10 +41,7 @@ export default {
                 passwordAgain: [
                     {required: true, message: '請輸入密碼驗證', trigger: 'blur'}
                 ]
-            },
-            oldPassword: [
-                {required: true, message: '請輸入舊密碼', trigger: 'blur'}
-            ],
+            }
         };
     },
     computed:{
@@ -49,7 +52,8 @@ export default {
             this.form = JSON.parse(JSON.stringify(row));
             this.type = 'update'
             this.title = "更新使用者";
-            this.rules["oldPassword"] = this.oldPassword
+            this.rules = {}
+            // this.rules["oldPassword"] = this.oldPassword
         },
         async handleForm(id) {
             this.$refs.userForm.validate(async (valid) => {
@@ -82,7 +86,9 @@ export default {
             this.form = this.defaultForm;
             this.type = 'create';
             this.title = "新增使用者";
-            this.rules.oldPassword && delete this.rules.oldPassword
+            // this.rules.oldPassword && delete this.rules.oldPassword
+            this.rules = this.rulesBak
+            
         }
     },
     watch: {
