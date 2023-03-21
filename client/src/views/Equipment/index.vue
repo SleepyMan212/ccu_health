@@ -2,18 +2,29 @@
 import "../../assets/scss/core.scss";
 import EquipmentForm from "../../components/EquipmentForm/index"
 import EquipmentList from "../../components/EquipmentList/index"
+import { mapGetters } from 'vuex'
 
 export default {
     name: "Equipment",
     components: {
         EquipmentForm,
         EquipmentList
+    }
+    ,computed:{
+            ...mapGetters([
+            'user',
+        ]),
     },
     data() {
         return {
             isCollapse: true,
             tableData: []
         };
+    },
+    created() {
+        if(!this.user || !this.user.isManager) {
+            this.$router.push('/')
+        }
     },
     methods: {
         switchMenu() {
