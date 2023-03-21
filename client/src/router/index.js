@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Order from '../views/Order/index.vue'
 // import EquipmentList from '../views/EquipmentList/index.vue'
 import Equipment from '../views/Equipment/index.vue'
+import Users from '../views/Users/index.vue'
 // import Main from '../views/Main/index.vue'
 
 Vue.use(VueRouter)
@@ -25,6 +26,11 @@ const routes = [
     //     name: 'EquipmentList'
     //   }
     // ]
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    component: Users
   },
   // {
   //   path: '/order',

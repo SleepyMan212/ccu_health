@@ -24,6 +24,12 @@
                             <span slot="title">管理器材</span>
                         </el-menu-item>
                     </router-link>
+                    <router-link :to="{name: 'Users'}" v-if="user&&user.isAdmin">
+                        <el-menu-item index="3">
+                            <i class="el-icon-user"></i>
+                            <span slot="title">管理使用者</span>
+                        </el-menu-item>
+                    </router-link>
                 </el-menu>
             </el-aside>
             <el-main class="main">
