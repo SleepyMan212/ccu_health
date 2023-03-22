@@ -10,14 +10,21 @@
         <el-container class="content">
             <el-aside class="aside">
                 <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :collapse="isCollapse">
-                    <router-link :to="{name: 'EquipmentInfo'}">
+                    <router-link :to="{name: 'Equipment'}" v-if="user&&user.isAdmin">
                         <!-- <router-link to="/"> -->
                         <el-menu-item index="1">
                             <i class="el-icon-document"></i>
                             <span slot="title">登記借用</span>
                         </el-menu-item>
                     </router-link>
-                    <router-link :to="{name: 'Equipment'}">
+                    <router-link :to="{name: 'EquipmentInfo'}" v-else>
+                        <!-- <router-link to="/"> -->
+                        <el-menu-item index="1">
+                            <i class="el-icon-document"></i>
+                            <span slot="title">登記借用</span>
+                        </el-menu-item>
+                    </router-link>
+                    <router-link :to="{name: 'Equipment'}" v-show="user&&user.isAdmin">
                         <!-- <router-link to="/equipment/list"> -->
                         <el-menu-item index="2">
                             <i class="el-icon-setting"></i>

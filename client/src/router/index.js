@@ -14,6 +14,11 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    component: EquipmentInfo
+  },
+  {
+    path: '/order',
+    name: 'Order',
     component: Order
   },
   {
