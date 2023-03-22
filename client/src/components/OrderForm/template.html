@@ -1,8 +1,11 @@
 <div>
     <el-dialog :title="title" :visible.sync="orderFormVisible">
-        <el-form :model="form" label-width="80px" :rules="rules" ref="orderForm">
+        <el-form :model="form" label-width="120px" :rules="rules" ref="orderForm">
             <el-form-item label="名稱" prop="userName">
                 <el-input placeholder="借用人" v-model="form.userName"></el-input>
+            </el-form-item>
+            <el-form-item label="系所/相關單位" prop="department">
+                <el-input placeholder="系所/相關單位" v-model="form.department"></el-input>
             </el-form-item>
             <el-form-item label="數量" prop="count">
                 <el-input type="number" placeholder="數量" v-model="form.count"></el-input>

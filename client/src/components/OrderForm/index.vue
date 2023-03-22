@@ -14,6 +14,7 @@ export default {
             form: {
                 userName: '',
                 phone: '',
+                department: '',
                 count: 0,
                 equipmentId: null,
                 email: '',
@@ -21,6 +22,7 @@ export default {
             },
             defaultForm: {
                 userName: '',
+                department: '',
                 phone: '',
                 count: 0,
                 equipmentId: null,
@@ -36,6 +38,9 @@ export default {
                 ],
                 userName: [
                     {required: true, message: '請輸入借用人', trigger: 'blur'}
+                ],
+                department: [
+                    {required: true, message: '請輸入系所/相關單位', trigger: 'blur'}
                 ],
                 count: [
                     {required: true, message: '請輸入借用數量', trigger: 'blur'}
