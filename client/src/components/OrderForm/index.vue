@@ -40,7 +40,7 @@ export default {
                     {required: true, message: '請輸入借用人', trigger: 'blur'}
                 ],
                 department: [
-                    {required: true, message: '請輸入系所/相關單位', trigger: 'blur'}
+                    {required: true, message: '請輸入單位／系所', trigger: 'blur'}
                 ],
                 count: [
                     {required: true, message: '請輸入借用數量', trigger: 'blur'}
