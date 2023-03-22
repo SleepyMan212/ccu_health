@@ -163,6 +163,7 @@ function buildData(data) {
             equipmentName: d.Equipment.name,
             comment: d.comment,
             isExtend: d.isExtend,
+            department: d.department,
         }
     });
 }
