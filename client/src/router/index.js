@@ -5,6 +5,7 @@ import Order from '../views/Order/index.vue'
 // import EquipmentList from '../views/EquipmentList/index.vue'
 import Equipment from '../views/Equipment/index.vue'
 import EquipmentInfo from '../views/EquipmentInfo/index.vue'
+import OrderRecord from '../views/OrderRecord/index.vue'
 import Users from '../views/Users/index.vue'
 // import Main from '../views/Main/index.vue'
 
@@ -17,9 +18,21 @@ const routes = [
     component: EquipmentInfo
   },
   {
+    path: '/order/record',
+    name: 'OrderRecord',
+    component: OrderRecord
+  },
+  {
     path: '/order',
     name: 'Order',
-    component: Order
+    component: Order,
+    // children: [
+    //   {
+    //     path: 'record',
+    //     component: OrderRecord,
+    //     name: 'OrderRecord'
+    //   }
+    // ]
   },
   {
     path: '/equipment',

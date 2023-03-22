@@ -37,6 +37,12 @@
                             <span slot="title">管理使用者</span>
                         </el-menu-item>
                     </router-link>
+                    <router-link :to="`/order/record`" v-if=" user&&user.isAdmin">
+                        <el-menu-item index="5">
+                            <i class="el-icon-files"></i>
+                            <span slot="title">借用紀錄</span>
+                        </el-menu-item>
+                    </router-link>
                 </el-menu>
             </el-aside>
             <el-main class="main">

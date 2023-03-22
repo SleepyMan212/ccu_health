@@ -1,0 +1,31 @@
+<div>
+    <el-row type='flex' justify="space-between" align="middle">
+        <el-col :span="6" align="center">
+        </el-col>
+        <el-col :span="12" align="center" style="font-size: 1.1rem;;">
+            借用紀錄
+        </el-col>
+        <el-col :span="6" align="center">
+        </el-col>
+    </el-row>
+    <el-row type='flex' justify="center">
+        <el-col :span="12">
+            <el-table :data="tableData" border style="margin-top:25px; width: 100%">
+                <el-table-column prop="borrowMan" label="經手人" sortable>
+                </el-table-column>
+                <el-table-column prop="orderId" label="租借索引" sortable>
+                </el-table-column>
+                <el-table-column prop="username" label="租借人" sortable>
+                </el-table-column>
+                <el-table-column prop="createdAt" label="經手日期" align='center' sortable>
+                    <template slot-scope="scope">
+                        <p>{{scope.row.createdAt.substring(0,10)}}</p>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="statusText" label="操作" align='center'>
+                </el-table-column>
+            </el-table>
+        </el-col>
+    </el-row>
+</div>
+

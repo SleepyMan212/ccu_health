@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 const db = require('../models');
 const dayjs = require('dayjs');
-const { Orders, sequelize, Equipment} = db;
+const { Users, Orders, sequelize, Equipment, OrderRecord } = db;
+const manager = require('./middleware/manager');
+const auth = require('./middleware/auth');
 
 router.get('/', async function (req, res) {
     try {
@@ -25,6 +27,29 @@ router.get('/', async function (req, res) {
         res.status(400).json({ msg: "bad request" });
     }
 });
+router.get('/record', async function (req, res) {
+    try {
+        // const data = await OrderRecord.findAll();
+        const data = await OrderRecord.findAll({
+            attributes: ['status', 'createdAt', [sequelize.col('Order.userName'), 'username'], [sequelize.col('User.username'), 'borrowMan'], [sequelize.col('Order.id'), 'orderId']],
+            include: [
+                { model: Orders, as: 'Order', attributes: [], required: true, },
+                { model: Users, as: 'User', attributes: [], required: true, }
+            ],
+            order:[
+                ['id']
+            ]
+        });
+
+        res.json({
+            data
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ msg: "bad request" });
+    }
+});
 
 router.get('/:id', async function (req, res) {
     const { id } = req.params;
@@ -37,31 +62,48 @@ router.get('/:id', async function (req, res) {
     res.json({ data: buildData(data) });
 });
 
-router.put('/:id', async function (req, res) {
+router.put('/:id', auth, manager, async function (req, res) {
     const { id } = req.params;
     const { count, equipmentId, ...body } = req.body;
+    const { id: userId } = req.decode
+    const t = await sequelize.transaction();
     try {
         const order = await Orders.findOne({where:{
             id,
             equipmentId,
             status: false
         }})
+        let status = 4;
+        if (body.status === true && (order && order.status === false)) {
+            status = 1;
+        }
         console.info(order === null ? count : count - order.count);
         const equipment = await checkEquipment(res, equipmentId, order === null ? count : count - order.count);
         // const equipment = await checkEquipment(res, equipmentId, oldEquipmentId === equipmentId ? count - oldCount : count);
         const expiredAt = dayjs(body.createdAt).add(equipment.duration, "day").format();
         await Orders.update(
             { ...body, count, expiredAt, equipmentId },
-            { where: { id } }
+            { where: { id } },
+            { transaction: t }
         );
+        await OrderRecord.create({
+            userId,
+            orderId: id,
+            status
+        }, { transaction: t })
+        await t.commit();
         res.status(204).json();
     } catch (error) {
         console.info(error)
+        t.rollback();
+        res.status(400).json({ msg: "bad request" });
     }
 });
 
-router.put('/:id/extend', async function (req, res) {
+router.put('/:id/extend', auth, manager, async function (req, res) {
     const { id } = req.params;
+    const { id: userId } = req.decode
+    const t = await sequelize.transaction();
     try {
         const { expiredAt: oldExpiredAt, isExtend, equipmentId  } = await Orders.findOne({where:{
             id
@@ -75,31 +117,50 @@ router.put('/:id/extend', async function (req, res) {
         const expiredAt = dayjs(oldExpiredAt).add(equipment.duration, "day").format();
         await Orders.update(
             { expiredAt, isExtend: true },
-            { where: { id } }
+            { where: { id } },
+            { transaction: t }
         );
+        await OrderRecord.create({
+            userId,
+            orderId: id,
+            status: 2
+        }, { transaction: t })
+        await t.commit();
         res.status(204).json();
     } catch (error) {
         console.info(error)
+        t.rollback();
+        res.status(400).json({ msg: "bad request" });
     }
 });
 
-router.post('/', async function (req, res) {
+router.post('/', auth, manager, async function (req, res) {
     const { equipmentId, count, ...body } = req.body;
+    const {id: userId} = req.decode
+    const t = await sequelize.transaction();
     try {
         const equipment = await checkEquipment(res, equipmentId, count);
         const expiredAt = dayjs().add(equipment.duration, "day").format();
-        const data = await Orders.create({ ...body, count, equipmentId, expiredAt });
+        const data = await Orders.create({ ...body, count, equipmentId, expiredAt }, { transaction: t });
         
+        await OrderRecord.create({
+            userId,
+            orderId: data.id,
+            status:0
+        }, { transaction: t })
+        await t.commit();
         res.status(201).json({ data });
         
     } catch (error) {
         console.error(error);
+        t.rollback();
         res.status(400).json({msg: "bad request"});
     }
 });
 
-router.delete('/:id', async function (req, res) {
+router.delete('/:id', auth, manager, async function (req, res) {
     const t = await sequelize.transaction();
+    const { id: userId } = req.decode
     try {
         const { id } = req.params;
         const data = await Orders.destroy({
@@ -107,14 +168,21 @@ router.delete('/:id', async function (req, res) {
                 id
             }
         }, { transaction: t });
+        await OrderRecord.create({
+            userId,
+            orderId: id,
+            status: 3
+        }, { transaction: t })
         await t.commit();
         res.json({ data }, 204);
     } catch (error) {
         console.error(error);
-        res.status(400).json({ msg: "bad request" });
         t.rollback();
+        res.status(400).json({ msg: "bad request" });
     }
 });
+
+
 
 async function checkLimit (equipmentId, remainCount){
     const allCount = (await Orders.findAll({
@@ -167,5 +235,16 @@ function buildData(data) {
         }
     });
 }
+
+function buildRecordData (data) {
+    return data.map((d) => {
+        return {
+            id: d.id,
+            borrowMan: d.User.username,
+            department: d.Order.department,
+        }
+    });
+}
+
 
 module.exports = router;

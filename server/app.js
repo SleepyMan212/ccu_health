@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var equipmentRouter = require('./routes/equipment');
 var ordersRouter = require('./routes/orders');
+var ordersRecordRouter = require('./routes/ordersRecord');
 const cron = require("node-cron");
 const routine = require('./routine.js')
 
@@ -29,6 +30,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/equipment', equipmentRouter);
 app.use('/orders', ordersRouter);
+// app.use('/record', ordersRecordRouter);
+// app.use('/orders/record', ordersRecordRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

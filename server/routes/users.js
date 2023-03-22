@@ -39,8 +39,8 @@ router.delete('/:id',auth, admin, async function (req, res) {
     res.json({ data }, 204);
   } catch (error) {
     console.error(error);
-    res.status(400).json({ msg: "bad request" });
     t.rollback();
+    res.status(400).json({ msg: "bad request" });
   }
 });
 
@@ -88,7 +88,12 @@ router.post('/login', async function(req, res) {
   })
 
   if(bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({ username, isAdmin: user.auth === 1, isManager: (user.auth === 1 || user.auth === 2) }, process.env["JWT_SECRET"],{
+    const token = jwt.sign({ 
+      id: user.id,
+      username, 
+      isAdmin: user.auth === 1, 
+      isManager: (user.auth === 1 || user.auth === 2)
+    }, process.env["JWT_SECRET"],{
       expiresIn: process.env["EXPIRES_IN"]
     });
 

@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Equipment',
         foreignKey: 'equipmentId'
       })
+      this.hasMany(models.OrderRecord, {
+        foreignKey: 'orderId'
+      });
     }
   }
   Orders.init({
@@ -110,6 +113,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Orders',
+    paranoid: true,
+    timestamps: true
   });
   return Orders;
 };

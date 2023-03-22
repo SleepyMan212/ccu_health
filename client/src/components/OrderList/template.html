@@ -1,14 +1,16 @@
 <div>
-    <el-table :data="tableData" border style="margin-top:25px; width: 1200px">
+    <el-table :data="tableData" border style="margin-top:25px; width: 1500px">
+        <el-table-column prop="id" label="租借索引" width="110" sortable>
+        </el-table-column>
         <el-table-column prop="statusText" label="狀態" width="80" sortable>
         </el-table-column>
         <el-table-column prop="userName" label="借用人" width="80">
         </el-table-column>
-        <el-table-column prop="department" label="單位／系所" width="80">
+        <el-table-column prop="department" label="單位／系所" width="160">
         </el-table-column>
-        <el-table-column prop="createdAt" label="借用日期" width="80" sortable align='center'>
+        <el-table-column prop="createdAt" label="借用日期" width="120" sortable align='center'>
         </el-table-column>
-        <el-table-column prop="expiredAt" label="應歸還日" width="80" sortable align='center'>
+        <el-table-column prop="expiredAt" label="應歸還日" width="120" sortable align='center'>
         </el-table-column>
         <el-table-column prop="equipmentName" label="器材" width="120">
         </el-table-column>

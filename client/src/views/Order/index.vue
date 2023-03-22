@@ -5,7 +5,7 @@ import OrderList from "../../components/OrderList/index"
 import dayjs from "dayjs"
 
 export default {
-    name: "Equipment",
+    name: "Order",
     components: {
         OrderForm,
         OrderList
