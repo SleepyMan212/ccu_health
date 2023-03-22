@@ -53,12 +53,12 @@ export default {
         },
     },
     async created() {
-        console.log(this.user)
-        if(!(this.user&&this.user.isLogin)){
+        if(this.isLogin){
+            this.getData();
+        } else {
             this.$toasted.show('請先登入', {type:'error', duration:3000})
             this.$router.go(-1)
         }
-        this.getData();
 
     },
     watch: {
