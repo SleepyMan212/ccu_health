@@ -18,6 +18,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    userLogout ({ commit }) {
+      console.log("DDDDDDDDDDD")
+      window.localStorage.removeItem('jwtToken');
+      commit('setToken', null);
+    },
     setToken({ commit }, token) {
       if (token === null) {
         window.localStorage.removeItem('jwtToken');

@@ -17,6 +17,7 @@ export default {
     methods: {
         ...mapActions([
             'setToken',
+            'userLogout',
             'checkLogin',
         ]),
         switchMenu() {
@@ -41,6 +42,14 @@ export default {
     },
     async created() {
         await this.checkLogin()
+        if(this.isLogin) {
+            window.addEventListener('beforeunload', async ()=> {
+                // e.preventDefault();
+                // e.returnValue = '';
+                
+                this.userLogout();
+            });
+        }
     },
     computed: {
         ...mapGetters([

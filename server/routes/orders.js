@@ -29,7 +29,6 @@ router.get('/', async function (req, res) {
 });
 router.get('/record', async function (req, res) {
     try {
-        // const data = await OrderRecord.findAll();
         const data = await OrderRecord.findAll({
             attributes: ['status', 'createdAt', [sequelize.col('Order.userName'), 'username'], [sequelize.col('User.username'), 'borrowMan'], [sequelize.col('Order.id'), 'orderId']],
             include: [
@@ -40,7 +39,6 @@ router.get('/record', async function (req, res) {
                 ['id']
             ]
         });
-
         res.json({
             data
         });
@@ -219,8 +217,8 @@ function buildData(data) {
     return data.map((d) => {
         return {
             id: d.id,
-            expiredAt: d.expiredAt,
-            createdAt: d.createdAt,
+            expiredAt: dayjs(d.expiredAt).format('YYYY-MM-DD HH:mm'),
+            createdAt: dayjs(d.createdAt).format('YYYY-MM-DD HH:mm') ,
             sendedAt: d.sendedAt,
             userName: d.userName,
             email: d.email,
@@ -229,19 +227,10 @@ function buildData(data) {
             count: d.count,
             equipmentId: d.Equipment.id,
             equipmentName: d.Equipment.name,
-            comment: d.comment,
+            comment: d.comment.replace(/<br>/g, '\n'),
+            eqipmentNumberComment: d.eqipmentNumberComment.replace(/<br>/g, '\n'),
             isExtend: d.isExtend,
             department: d.department,
-        }
-    });
-}
-
-function buildRecordData (data) {
-    return data.map((d) => {
-        return {
-            id: d.id,
-            borrowMan: d.User.username,
-            department: d.Order.department,
         }
     });
 }

@@ -13,7 +13,7 @@
             </div>
             <div style="margin-top: 16px; text-align:left;">
                 <h2 style="font-size: 1.6rem; margin:12px 0; ">借用器材及期限：</h2>
-                <el-table :data="tableData" border style="margin-top: 16px; width: 1200px;" header-cell-style="background-color:#f2f2f2; color:#000000">
+                <el-table :data="tableData" border style="margin-top: 16px; width: 1200px;" :header-cell-style="()=>'background-color:#f2f2f2;color:#000000'">
                     <el-table-column prop="name" label="名稱" width="180">
                     </el-table-column>
                     <el-table-column prop="card" label="證件" width="180">

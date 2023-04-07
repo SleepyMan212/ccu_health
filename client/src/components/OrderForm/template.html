@@ -22,8 +22,11 @@
             <el-form-item label="電話" prop="phone">
                 <el-input type="phone" v-model="form.phone"></el-input>
             </el-form-item>
-            <el-form-item label="器材或財產編號／備註">
-                <el-input type="textarea" v-model="form.comment" :rows="4"></el-input>
+            <el-form-item label="備註">
+                <el-input type="textarea" style="white-space: pre-wrap" v-model="form.comment" :rows="4"></el-input>
+            </el-form-item>
+            <el-form-item label="器材或財產編號">
+                <el-input type="textarea" style="white-space: pre-wrap" v-model="form.eqipmentNumberComment" :rows="4"></el-input>
             </el-form-item>
             <el-form-item label="是否歸還">
                 <el-switch v-model="form.status" active-color="#13ce66" inactive-color="#ff4949">

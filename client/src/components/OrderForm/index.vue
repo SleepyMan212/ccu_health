@@ -18,7 +18,8 @@ export default {
                 count: 0,
                 equipmentId: null,
                 email: '',
-                comment: ''
+                comment: '',
+                eqipmentNumberComment: ''
             },
             defaultForm: {
                 userName: '',
@@ -27,7 +28,8 @@ export default {
                 count: 0,
                 equipmentId: null,
                 email: '',
-                comment: ''
+                comment: '',
+                eqipmentNumberComment: ''
             },
             rules:{
                 email: [

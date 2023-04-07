@@ -58,6 +58,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    eqipmentNumberComment: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: ''
+    },
     status: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
