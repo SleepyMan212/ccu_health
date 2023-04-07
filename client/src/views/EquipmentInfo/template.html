@@ -2,7 +2,7 @@
     <el-row type='flex' justify="center" align="middle">
         <el-col :span="12">
             <!-- <el-col :xs="12" :sm="{span:8,offset:2}" :md="{span:8,offset:2}" :lg="3" :xl="1"> -->
-            <h1 style="text-align: center; font-size: 2rem;">衛生保健組器材借用辦法</h1>
+            <h1 style="text-align: center; font-size: 2rem;">中正大學衛生保健組借用登記</h1>
         </el-col>
     </el-row>
     <el-row style="margin-top: 20px;" type='flex' justify="center">
@@ -13,7 +13,7 @@
             </div>
             <div style="margin-top: 16px; text-align:left;">
                 <h2 style="font-size: 1.6rem; margin:12px 0; ">借用器材及期限：</h2>
-                <el-table :data="tableData" border style="margin-top: 16px; width: 1200px;">
+                <el-table :data="tableData" border style="margin-top: 16px; width: 1200px;" header-cell-style="background-color:#f2f2f2; color:#000000">
                     <el-table-column prop="name" label="名稱" width="180">
                     </el-table-column>
                     <el-table-column prop="card" label="證件" width="180">
@@ -30,46 +30,7 @@
                     </el-table-column>
                 </el-table>
             </div>
-            <div style="text-align:left;" class="mt-3">
-                <h2 style="font-size: 1.6rem; margin:12px 0; ">借用辦法:</h2>
-                <ol class="mt-1">
-                    <li>請憑相關證件辦理借用手續，辦理借用、歸還器材時間為本組上班日上午10時至下午4時</li>
-                    <li>請領取器材前，先與衛保組人員確認各項器材及配件是否狀態正常。歸還器材前，亦要確保器材正常沒損壞，歸還時與工作人員共同檢查器材。</li>
-                </ol>
-            </div>
-            <div style="text-align:left;" class="mt-3">
-                <h2 style="font-size: 1.6rem; margin:12px 0; ">使用規則：</h2>
-                <ol class="mt-1">
-                    <li>
-                        <b>本組各項器材僅提供傷病情況時使用，嚴禁私人使用或外借。</b>
-                    </li>
-                    <li>
-                        <b>器材借用期間，借出器材之安全保管事宜，由借用人全權負責；借用器材</b>
-                        <span class="blue--text">
-                            <b>請務必保持整潔完整，如有損壞或遺失，一律由借用者負起賠償責任。</b>
-                        </span>
-                    </li>
-                    <li>
-                        如器材逾期未歸，經通知3次皆未歸還者，本組將禁止該借用者3個月不得借用器材， 並依「
-                        <a href="http://studaffbh.ccu.edu.tw/ezfiles/2/1002/img/35/181759388.odt">國立中正大學學生獎懲要點</a> 」處置。
-                    </li>
-                    <li>
-                        <b>因器材數量有限，請借用人準時歸還，以免需要者無器材可借用</b>；器材限於校內使用，若需返家休養或長期使用，建議自行至鄰近醫院或醫療器材行租用或自行購買。
-                    </li>
-                    <li>如因傷病情形需延長借用期限者，請於到期日前3天，請至健康E點通網頁線上申請延長借用時間。延長使用的時間以不超過借用期限為原則，續借以一次為限，特殊情形除外。（範例：拐杖借用期間為1個月，則延長使用時間最多即為1個月）</li>
-                </ol>
-            </div>
         </el-col>
     </el-row>
-    <el-row type='flex' justify="center" style="margin-top: 16px;">
-        <el-col :span="12">
-            <el-button type="primary">
-                <router-link :to="{name: 'Order'}" class="btn-accept">
-                    <p>我已了解</p>
-                </router-link>
-            </el-button>
-        </el-col>
-    </el-row>
-
 </div>
 

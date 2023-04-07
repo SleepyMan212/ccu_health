@@ -10,18 +10,18 @@
         <el-container class="content">
             <el-aside class="aside">
                 <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :collapse="isCollapse">
-                    <router-link :to="{name: 'Order'}" v-if="user&&user.isAdmin">
+                    <router-link :to="{name: 'Order'}">
                         <!-- <router-link to="/"> -->
-                        <el-menu-item index="1">
+                        <el-menu-item index="1" v-show="user&&user.isManager">
                             <i class="el-icon-document"></i>
                             <span slot="title">登記借用</span>
                         </el-menu-item>
                     </router-link>
-                    <router-link :to="{name: 'EquipmentInfo'}" v-else>
+                    <router-link :to="{name: 'EquipmentInfo'}">
                         <!-- <router-link to="/"> -->
                         <el-menu-item index="4">
-                            <i class="el-icon-document"></i>
-                            <span slot="title">登記借用</span>
+                            <i class="el-icon-info"></i>
+                            <span slot="title">借用須知</span>
                         </el-menu-item>
                     </router-link>
                     <router-link :to="{name: 'Equipment'}" v-show="user&&user.isAdmin">
@@ -31,13 +31,13 @@
                             <span slot="title">管理器材</span>
                         </el-menu-item>
                     </router-link>
-                    <router-link :to="{name: 'Users'}" v-if="user&&user.isAdmin">
+                    <router-link :to="{name: 'Users'}" v-show="user&&user.isAdmin">
                         <el-menu-item index="3">
                             <i class="el-icon-user"></i>
                             <span slot="title">管理使用者</span>
                         </el-menu-item>
                     </router-link>
-                    <router-link :to="`/order/record`" v-if=" user&&user.isAdmin">
+                    <router-link :to="`/order/record`" v-show=" user&&user.isAdmin">
                         <el-menu-item index="5">
                             <i class="el-icon-files"></i>
                             <span slot="title">借用紀錄</span>
