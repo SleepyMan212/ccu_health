@@ -32,10 +32,8 @@ export default {
                 this.tableData = res.data.data
                     .sort((a, b) => a.id > b.id)
                     .filter((d) => {
-                        console.log(d.id)
-                        console.log(this.$route.query.id)
-                        console.log(this.$route.query.id == d.id)
                         if(this.$route.query.id) return this.$route.query.id == d.id
+                        return true
                     })
                 console.log(this.$route.query.id)
                 this.updateCount(this.currentEquipment);
