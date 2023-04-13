@@ -29,7 +29,15 @@ export default {
         async getData() {
             try {
                 const res = await this.$http.get('//127.0.0.1:3000/orders')
-                this.tableData = res.data.data.sort((a, b) => a.id > b.id)   
+                this.tableData = res.data.data
+                    .sort((a, b) => a.id > b.id)
+                    .filter((d) => {
+                        console.log(d.id)
+                        console.log(this.$route.query.id)
+                        console.log(this.$route.query.id == d.id)
+                        if(this.$route.query.id) return this.$route.query.id == d.id
+                    })
+                console.log(this.$route.query.id)
                 this.updateCount(this.currentEquipment);
             } catch (error) {
                 console.error(error)

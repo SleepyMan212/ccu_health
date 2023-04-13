@@ -14,6 +14,9 @@
                 <el-table-column prop="borrowMan" label="經手人" sortable>
                 </el-table-column>
                 <el-table-column prop="orderId" label="租借索引" sortable>
+                    <template slot-scope="scope">
+                        <router-link :to="{ path: '/order', query: {id: scope.row.orderId} }">{{scope.row.orderId}}</router-link>
+                    </template>
                 </el-table-column>
                 <el-table-column prop="username" label="租借人" sortable>
                 </el-table-column>

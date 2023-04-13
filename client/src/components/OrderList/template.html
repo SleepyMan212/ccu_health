@@ -23,14 +23,14 @@
         </el-table-column>
         <el-table-column prop="phone" label="手機">
         </el-table-column>
-        <el-table-column prop="comment" label="備註">
-            <template slot-scope="scope">
-                <p v-html="scope.row.comment.replace(/\n/g, '<br>')"></p>
-            </template>
-        </el-table-column>
         <el-table-column prop="eqipmentNumberComment" label="器材或財產編號">
             <template slot-scope="scope">
                 <p v-html="scope.row.eqipmentNumberComment.replace(/\n/g, '<br>')"></p>
+            </template>
+        </el-table-column>
+        <el-table-column prop="comment" label="備註">
+            <template slot-scope="scope">
+                <p v-html="scope.row.comment.replace(/\n/g, '<br>')"></p>
             </template>
         </el-table-column>
         <el-table-column label="申請續借" width="120" align='center'>

@@ -44,6 +44,9 @@ export default {
                 department: [
                     {required: true, message: '請輸入單位／系所', trigger: 'blur'}
                 ],
+                eqipmentNumberComment: [
+                    {required: true, message: '請輸入器材或財產編號', trigger: 'blur'}
+                ],
                 count: [
                     {required: true, message: '請輸入借用數量', trigger: 'blur'}
                 ],
