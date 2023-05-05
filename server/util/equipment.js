@@ -41,7 +41,7 @@ async function sendNoitfy() {
                     attachments: []
                 })
                 d.comment += `${dayjs().format('YYYY-MM-DD')} 已發信提醒歸還<br>`;
-                d.send = new Date();
+                d.sendedAt = new Date();
                 d.save();
             }
         })
@@ -56,7 +56,10 @@ async function sendExpire() {
                 expiredAt: {
                     [Op.lt]: dayjs()
                 },
-                status: false
+                status: false,
+                sendedAt: {
+                    [Op.ne]: dayjs()
+                }
             }
         },
         include: [
@@ -80,7 +83,7 @@ async function sendExpire() {
                 attachments: []
             })
             d.comment += `${dayjs().format('YYYY-MM-DD')} 已發信提醒逾期<br>`;
-            d.send = new Date();
+            d.sendedAt = new Date();
             d.save();
     })
 
