@@ -1,5 +1,6 @@
-const { checkEquipmentRent } = require('./util/equipment')
+const { checkEquipmentRent, sendBackup } = require('./util/equipment')
 
 module.exports = {
 	checkEquipmentRent,
+	sendBackup
 }
