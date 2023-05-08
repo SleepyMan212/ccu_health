@@ -79,7 +79,7 @@ async function sendBackup() {
         setTimeout(()=>{
             fs.unlinkSync(filename);
         },
-        10000)
+        100000)
     } catch (error) {
         console.error(error);
     }
