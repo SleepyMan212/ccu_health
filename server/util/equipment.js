@@ -31,7 +31,7 @@ function convertToCSV(header, data) {
 
     return csvString
 }
-async function sendBackup() {
+async function orderBackup() {
     try {
         const filename = `${dayjs().format("YYYY-MM-DD")}.xlsx`;
         const headers = ['索引', '是否歸還', '借用人', '單位／系所', '電話', '信箱', '借用物品', '數量', '借用日期', '到期日期', '備註', '器材或財產編號'];
@@ -62,29 +62,31 @@ async function sendBackup() {
             }
         };
         XLSX.writeFile(workBook, `${filename}`);
-        send({
-            to: process.env.BACKUP_MAIL,
-            subject: "衛保組器材租借 每日備份",
-            html: `<b>您好 :</b><br>
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function sendBackup() {
+    const filename = `${dayjs().format("YYYY-MM-DD")}.xlsx`;
+    send({
+        to: process.env.BACKUP_MAIL,
+        subject: "衛保組器材租借 每日備份",
+        html: `<b>您好 :</b><br>
 							附件為${dayjs().format("YYYY-MM-DD")} 的備份。<br>
 							<br>
 							國立中正大學衛生保健組<br>
 							地址 : 62102嘉義縣民雄鄉大學路一段168<br>
 							電話 : 05-2720411轉12345<br>
 							電子郵件信箱 : health@ccu.edu.tw`,
-            attachments: [{
-                'path': `${filename}`
-            }]
-        })
-        setTimeout(()=>{
-            fs.unlinkSync(filename);
-        },
+        attachments: [{
+            'path': `${filename}`
+        }]
+    })
+    setTimeout(() => {
+        fs.unlinkSync(filename);
+    },
         100000)
-    } catch (error) {
-        console.error(error);
-    }
 }
-
 async function sendNoitfy() {
     const nodifyDayStart = dayjs().format("YYYY-MM-DD");
     const nodifyDayEnd = dayjs().add(4, 'day').format("YYYY-MM-DD");
@@ -174,5 +176,6 @@ async function checkEquipmentRent() {
 
 module.exports = {
     checkEquipmentRent,
+    orderBackup,
     sendBackup
 }

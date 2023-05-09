@@ -50,9 +50,13 @@ app.use(function(err, req, res) {
 
 
 cron.schedule("00 00 03 * * *", () => {
-  console.log("send e-mail");
+  routine.orderBackup();
+})
+cron.schedule("00 10 03 * * *", () => {
+  console.log("send backup and notify e-mail");
   routine.checkEquipmentRent();
   routine.sendBackup();
 })
+
 
 module.exports = app;
