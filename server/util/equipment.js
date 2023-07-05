@@ -97,7 +97,8 @@ async function sendNoitfy() {
                     expiredAt:{
                         [Op.gt]: nodifyDayStart,
                         [Op.lt]: nodifyDayEnd
-                    }
+                    },
+                    status: false
                 }
             },
             include: [
